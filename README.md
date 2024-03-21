@@ -16,7 +16,7 @@ GitHub Actions Cache entries are typically `zstd` compressed archives. You can c
 
 `tar --zstd -cf poisoned_cache.tzstd cache/contents/here`
 
-If there is a cache hit then the cache restore action will just extract the archive. If the cache is poisoned you can over-write arbitrary files (ideally a script or someone else that the workflow calls after restoring the cache).
+If there is a cache hit then the cache restore action will just extract the archive. If the cache is poisoned you can over-write arbitrary files (ideally a script or something else that the workflow calls after restoring the cache).
 
 If an injection point is not clear, then [Boost Security's LOTP](https://boostsecurityio.github.io/lotp/) is a great resource for finding which files to overwrite to gain arbitrary execution in a workflow.
 
