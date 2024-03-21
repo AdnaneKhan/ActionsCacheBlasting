@@ -22,4 +22,4 @@ If an injection point is not clear, then [Boost Security's LOTP](https://boostse
 
 ## Disclaimer 
 
-All code is provided for research and educational purposes only. You are responsible for using this for research and authorized security research work only.
+All code is provided for research and educational purposes only. You are responsible for using this for research and authorized security testing work only.
