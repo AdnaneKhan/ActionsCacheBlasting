@@ -26,7 +26,9 @@ data = {
     "cacheSize": 1337
 }
 
-response = requests.post(args.cache_url, headers=headers, json=data)
+cache_url_full = f"{args.cache_url}/_apis/artifactcache/caches"
+
+response = requests.post(cache_url_full, headers=headers, json=data)
 if response.status_code == 201:
     cache_id = response.json()['cacheId']
     file_path = args.file_path
@@ -38,13 +40,13 @@ if response.status_code == 201:
         "Content-Range": f"bytes 0-{len(file_data) -1}/*"
     }
     patch_headers.update(headers)
-    patch_response = requests.patch(args.cache_url + '/' + str(cache_id), headers=patch_headers, data=file_data)
+    patch_response = requests.patch(cache_url_full + '/' + str(cache_id), headers=patch_headers, data=file_data)
     if patch_response.status_code == 204:
         file_size = os.path.getsize(file_path)
         size_data = {
             "size": file_size
         }
-        post_response = requests.post(args.cache_url + '/' + str(cache_id), headers=headers, json=size_data)
+        post_response = requests.post(cache_url_full + '/' + str(cache_id), headers=headers, json=size_data)
         print(post_response.status_code)
         print(post_response.text)
     else:
