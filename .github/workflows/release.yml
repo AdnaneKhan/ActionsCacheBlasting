@@ -1,0 +1,32 @@
+name: Release Go Example
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  id-token: write
+  contents: write
+  attestations: write
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+    - name: Build
+      run: go build -o hello example/hello.go
+    - name: Generate artifact attestation
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-path: 'hello'
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: hello
