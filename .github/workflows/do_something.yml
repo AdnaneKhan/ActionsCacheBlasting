@@ -1,0 +1,15 @@
+name: Do Something Manually
+on:
+  workflow_dispatch:
+    inputs:
+      setting:
+        type: string
+        description: Operation
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do The Thing 
+        run: echo "${{ inputs.setting }} accepted, performing something with setting."
+
