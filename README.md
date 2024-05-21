@@ -2,7 +2,7 @@
 
 Proof-of-concept code for research into GitHub Actions Cache poisoning. All of this is considered working as intended by GitHub.
 
-You can find more details on my [blog post](https://wordpress.com/post/adnanthekhan.com/454) covering GitHub Actions cache poisoning.
+You can find more details on my [blog post](http://adnanthekhan.com/2024/05/06/the-monsters-in-your-build-cache-github-actions-cache-poisoning/) covering GitHub Actions cache poisoning.
 
 ## What is it?
 
