@@ -8,8 +8,10 @@ You can find more details on my [blog post](http://adnanthekhan.com/2024/05/06/t
 
 This repository contains code to:
 
-* Exfiltrate the CacheServerUrl Actions Runtime token from a workflow (for example one that runs on `pull_request_target` and checks out user-controlled code). The URL and token is valid for **6 hours**, even if the workflow you exfiltrated it from only runs for a few seconds. There is no way for the repository maintainer to revoke this token.
+* Exfiltrate the CacheServerUrl Actions Runtime token from a workflow (for example one that runs on `pull_request_target` and checks out user-controlled code). The URL and token is valid for ~**6 hours**~ **90 minutes**, even if the workflow you exfiltrated it from only runs for a few seconds. There is no way for the repository maintainer to revoke this token.
 * Use the CacheServerUrl and token to write arbitrary values to the repository's GitHub Actions cache to user-controlled cache keys and versions.
+
+**UPDATE**: Sometime in May/June of 2024 GitHub reduced the time the token is valid from 6 hours to 90 minutes. It is still valid after the run conclusion, but in practice (unless an attacker is very lucky) it means an attacker will need to exploit the initial vulnerability to obtain the token twice. Once to fill the cache, and again to set poisoned values. I have not had a chance to dive into any other changes. If you want a fun research project, set up a self-hosted runner, route traffic through Burp, and use caching in a workflow to see if there is anything else that changed.
 
 ## How to Poison?
 
