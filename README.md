@@ -8,7 +8,14 @@ You can find more details on my [blog post](http://adnanthekhan.com/2024/05/06/t
 
 This repository contains code to:
 
-* Exfiltrate the CacheServerUrl Actions Runtime token from a workflow (for example one that runs on `pull_request_target` and checks out user-controlled code). The URL and token is valid for ~**6 hours**~ **90 minutes**, even if the workflow you exfiltrated it from only runs for a few seconds. There is no way for the repository maintainer to revoke this token.
+* Exfiltrate the CacheServerUrl Actions Runtime token from a workflow (for example one that runs on `pull_request_target` and checks out user-controlled code). ~The URL and token is valid for ~**6 hours**~ **90 minutes**, even if the workflow you exfiltrated it from only runs for a few seconds. There is no way for the repository maintainer to revoke this token.~
+
+<img width="566" alt="Token Revocation" src="https://github.com/user-attachments/assets/45693d5e-db80-4cfc-9919-309c1367084e" />
+
+**UPDATE**: As of ~Nov/Dec 2024, GitHub has implemented functionality to prevent Cache writes once the originating workflow job has completed. This effectively prevents the attack technique of cache stuffing using a single token. To exploit using the eviction method this now you must fill the cache while the first workflow runs and then create a second PR to poison the cache entries. For busy repositories with frequent PRs that re-set the cache entries this makes it very challenging, it also increases risk of detection because the workflow must run while stuffing the cache.
+
+The alternative technique is to pre-poison cache keys that could be updated by dependabot, etc. This is probably the path forward for a single PR, but will require investment in payload development to quickly poison future cache entries.
+
 * Use the CacheServerUrl and token to write arbitrary values to the repository's GitHub Actions cache to user-controlled cache keys and versions.
 
 **UPDATE**: Sometime in May/June of 2024 GitHub reduced the time the token is valid from 6 hours to 90 minutes. It is still valid after the run conclusion, but in practice (unless an attacker is very lucky) it means an attacker will need to exploit the initial vulnerability to obtain the token twice. Once to fill the cache, and again to set poisoned values. I have not had a chance to dive into any other changes. If you want a fun research project, set up a self-hosted runner, route traffic through Burp, and use caching in a workflow to see if there is anything else that changed.
