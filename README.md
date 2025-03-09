@@ -1,5 +1,7 @@
 # ActionsCacheBlasting
 
+## The code in this repository NO LONGER WORKS now that GitHub has migrated to their Cache V2 backend. Please use [Cacheract](https://github.com/adnanekhan/cacheract), which supports the new backend and works through new restrictions imposed by GitHub on caching.
+
 Proof-of-concept code for research into GitHub Actions Cache poisoning. All of this is considered working as intended by GitHub.
 
 You can find more details on my [blog post](http://adnanthekhan.com/2024/05/06/the-monsters-in-your-build-cache-github-actions-cache-poisoning/) covering GitHub Actions cache poisoning.
